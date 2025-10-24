@@ -7,14 +7,24 @@ import heroImage from "@/assets/hero-image.jpg";
 
 const Index = () => {
   useEffect(() => {
-    // Load GoHighLevel form embed script
-    const script = document.createElement("script");
-    script.src = "https://link.whad.ai/js/form_embed.js";
-    script.async = true;
-    document.body.appendChild(script);
+    // Load GoHighLevel embed script (for booking calendar)
+    const scriptId = "whad-form-embed-js";
+    let added = false;
+    let script = document.getElementById(scriptId) as HTMLScriptElement | null;
+
+    if (!script) {
+      script = document.createElement("script");
+      script.id = scriptId;
+      script.src = "https://link.whad.ai/js/form_embed.js";
+      script.async = true;
+      document.body.appendChild(script);
+      added = true;
+    }
 
     return () => {
-      document.body.removeChild(script);
+      if (added && script && script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
     };
   }, []);
 
@@ -219,21 +229,11 @@ const Index = () => {
             <Card className="bg-card border-border">
               <CardContent className="p-2">
                 <iframe
-                  src="https://link.whad.ai/widget/form/H3uXQixwkZAZ2oIi6FyL"
-                  style={{ width: "100%", height: "652px", border: "none", borderRadius: "8px" }}
-                  id="popup-H3uXQixwkZAZ2oIi6FyL"
-                  data-layout='{"id":"POPUP"}'
-                  data-trigger-type="alwaysShow"
-                  data-trigger-value=""
-                  data-activation-type="alwaysActivated"
-                  data-activation-value=""
-                  data-deactivation-type="neverDeactivate"
-                  data-deactivation-value=""
-                  data-form-name="Barber Shop"
-                  data-height="652"
-                  data-layout-iframe-id="popup-H3uXQixwkZAZ2oIi6FyL"
-                  data-form-id="H3uXQixwkZAZ2oIi6FyL"
-                  title="Barber Shop"
+                  src="https://link.whad.ai/widget/booking/ntzRcIurxrqRSDVqE8ik"
+                  style={{ width: "100%", border: "none", overflow: "hidden" }}
+                  scrolling="no"
+                  id="ntzRcIurxrqRSDVqE8ik_1761243882048"
+                  title="Book Appointment"
                 />
               </CardContent>
             </Card>
